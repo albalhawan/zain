@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :articles
+  before_save { self.email = email.downcase }
   #to ensure that the user is present and uniq -  the length to ensure that the number of the letters are at least Ex: 2 or 3 or 4
   validates :username, presence: true,
             uniqueness: { case_sensitive: false },
@@ -8,4 +10,5 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             format: { with: VALID_EMAIL_REGEX }
 
+  has_secure_password
 end
